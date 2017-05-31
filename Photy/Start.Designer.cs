@@ -146,6 +146,7 @@
             this.Controls.Add(this.downDir);
             this.Controls.Add(this.rightDir);
             this.Controls.Add(this.upDir);
+            this.DoubleBuffered = true;
             this.Name = "Start";
             this.Text = "Start";
             this.Load += new System.EventHandler(this.Start_Load);
