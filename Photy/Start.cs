@@ -19,6 +19,7 @@ namespace Photy
     {
         int curImgIndex = 0;
         int pageNum = 0;
+        int isAnim = 0;
         string[] dirName = new string[50];
         public static List<string> movePath = new List<string>();
         PictureBox pb;
@@ -148,7 +149,9 @@ namespace Photy
                 case Keys.Escape:
                     goToMain(); break;
             }
-
+            if (e.KeyCode == Keys.T) //T누르면 꺼짐
+                isAnim++;
+            
             if (e.KeyCode == Keys.W || e.KeyCode == Keys.D || e.KeyCode == Keys.S || e.KeyCode == Keys.A || e.KeyCode == Keys.Up || e.KeyCode == Keys.Right || e.KeyCode == Keys.Down || e.KeyCode == Keys.Left || e.KeyCode == Keys.Space)
             {
                 if (!Directory.Exists(Main.dirDialog.SelectedPath + "\\" + dirName[dirIndex]))
@@ -181,7 +184,9 @@ namespace Photy
                         return;
                     }
                     Load_Next_Image();
-                    slideToDestination(destination, pb, 1, PicturBoxAnimation_Remove);
+                    if (isAnim%2 == 0) // 기능 켜졌는지 확인
+                        slideToDestination(destination, pb, 1, PicturBoxAnimation_Remove); 
+
                 }
                 catch
                 {
