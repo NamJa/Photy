@@ -9,6 +9,8 @@ using System.Windows.Forms;
 using System.Diagnostics;
 using System.Threading;
 using System.Runtime.InteropServices;
+using System.Media;
+using WMPLib;
 
 namespace Photy
 {
@@ -21,6 +23,10 @@ namespace Photy
         public static List<string> movePath = new List<string>();
         PictureBox pb;
 
+        WindowsMediaPlayer WMP;
+        IWMPMedia Media;
+        IWMPPlaylist PlayList;
+
         public Start()
         {
             InitializeComponent();
@@ -32,6 +38,13 @@ namespace Photy
                 dirName[i] = "분류" + (i + 1);
             }
             dirName[48] = "기타";
+
+            WMP = new WindowsMediaPlayer();
+            Media = WMP.newMedia("bbyong.mp3");
+            PlayList = WMP.newPlaylist("MusicPlayer", "");
+
+            WMP.currentPlaylist = PlayList;
+            PlayList.appendItem(Media);
         }
 
         private void Start_Load(object sender, EventArgs e)
@@ -111,6 +124,7 @@ namespace Photy
 
         private void Start_PreviewKeyDown(object sender, PreviewKeyDownEventArgs e)
         {
+            WMP.controls.play();
             Control destination = null;
             int dirIndex = 0;
             e.IsInputKey = true;
